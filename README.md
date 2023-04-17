@@ -2,7 +2,7 @@
 
 Este código es un ejemplo de un compilador de análisis léxico en Java. Un compilador es un programa que toma el código fuente de un programa y lo traduce a un lenguaje que pueda ser entendido por una computadora.
 
-El análisis léxico es la primera fase del proceso de compilación, que consiste en escanear el código fuente y dividirlo en unidades léxicas llamadas tokens. ONU
+El análisis léxico es la primera fase del proceso de compilación, que consiste en escanear el código fuente y dividirlo en unidades léxicas llamadas tokens.
 
 El programa permite al usuario ingresar varias instrucciones en la interfaz o desde un archivo de texto. Las instrucciones pueden contener lexemas de varios tipos, como Separadores, Operadores aritméticos, Operadores relacionales, Operador de asignación, Operadores lógicos, Identificadores, Números enteros, Números con punto decimal y Tipos de datos.
 
