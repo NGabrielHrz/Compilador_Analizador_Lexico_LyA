@@ -8,7 +8,7 @@ El programa permite al usuario ingresar varias instrucciones en la interfaz o de
 
 El programa verifica que cada lexema cumpla con el patrón del lenguaje de programación en expresión regular y genera su respectivo token e insertarlo en una tabla de símbolos. En caso de que no cumpla, genera también un token de error e insertarlo en una tabla de errores.
 
-La tabla de símbolos muestra los tokens y sus respectivos lexemas. La tabla de errores muestra los tokens de error, los lexemas, la línea en la que ocurrió el error y una descripción del mismo. La pestaña Las
+La tabla de símbolos muestra los tokens y sus respectivos lexemas. La tabla de errores muestra los tokens de error, los lexemas, la línea en la que ocurrió el error y una descripción del mismo.
 
 El programa también guarda los tokens en un archivo de texto.
 
