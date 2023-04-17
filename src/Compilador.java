@@ -24,6 +24,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JOptionPane;
 
 public class Compilador extends JFrame implements ActionListener {
+    // ------------------------------------------------------------------------------------------------- A corregir
     private static final String SEPARADORES_PATTERN = "[\\(\\)\\{\\}\\[\\],;]";
     private static final String OPERADORES_ARITMETICOS_PATTERN = "[\\+\\-\\*/%]";
     private static final String OPERADORES_RELACIONALES_PATTERN = "[=!><]=|<>|<|>";
@@ -33,7 +34,7 @@ public class Compilador extends JFrame implements ActionListener {
     private static final String NUMEROS_ENTEROS_PATTERN = "\\d+";
     private static final String NUMEROS_DECIMALES_PATTERN = "\\d+\\.\\d+";
     private static final String TIPOS_DE_DATOS_PATTERN = "int|float|double|long|boolean|char|string";
-
+    // ------------------------------------------------------------------------------------------------- A corregir
     private static final Map<String, String> TOKENS = new HashMap<String, String>() {{
         put(SEPARADORES_PATTERN, "SEPARADOR");
         put(OPERADORES_ARITMETICOS_PATTERN, "OPERADOR_ARITMETICO");
@@ -45,7 +46,7 @@ public class Compilador extends JFrame implements ActionListener {
         put(NUMEROS_DECIMALES_PATTERN, "NUMERO_DECIMAL");
         put(TIPOS_DE_DATOS_PATTERN, "TIPO_DE_DATO");
     }};
-
+    // =================================================================================================
     private static final String ERROR_TOKEN = "ERROR";
 
     private static final String SIMBOLOS_FILENAME = "simbolos.txt";
