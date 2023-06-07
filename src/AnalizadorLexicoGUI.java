@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 public class AnalizadorLexicoGUI extends JFrame implements ActionListener {
     private JTextArea textArea;
@@ -38,7 +40,7 @@ public class AnalizadorLexicoGUI extends JFrame implements ActionListener {
     private int contadorTokenCondicional = 1;
     private int filaActual = 1;
 
-    //Interfaz grafica
+    // Interfaz grafica
     public AnalizadorLexicoGUI() {
         setTitle("Analizador Léxico");
         setSize(900, 600);
@@ -107,6 +109,7 @@ public class AnalizadorLexicoGUI extends JFrame implements ActionListener {
         AnalizadorSintactico analizador = new AnalizadorSintactico(codigo);
         return analizador.analizar();
     }
+
     private String obtenerErrorSintactico() {
         AnalizadorSintactico analizador = new AnalizadorSintactico(textArea.getText());
         boolean resultado = analizador.analizar();
@@ -114,6 +117,17 @@ public class AnalizadorLexicoGUI extends JFrame implements ActionListener {
             return "Error en la posición: " + analizador.getPosicion();
         }
         return "";
+    }
+
+    private void guardarEnArchivo(String filename, String contenido) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true));
+            writer.append(contenido);
+            writer.newLine();
+            writer.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void escribirArchivo(String filename, Set<String> contenido) {
@@ -158,7 +172,7 @@ public class AnalizadorLexicoGUI extends JFrame implements ActionListener {
         }
     }
 
-    //metodo para evaluar el tipo de lexema
+    // metodo para evaluar el tipo de lexema
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == verificarButton) {
             String[] lineas = textArea.getText().split("\n");
@@ -168,48 +182,68 @@ public class AnalizadorLexicoGUI extends JFrame implements ActionListener {
                     String lexema = palabra.trim();
                     if (!lexema.isEmpty() && !lexemasRegistrados.contains(lexema)) {
                         lexemasRegistrados.add(lexema);
-                        if  (Separador(lexema)) {
+                        if (Separador(lexema)) {
                             String token = obtenerTokenseparador();
-                            Object[] row = {"Separador", lexema, token};
+                            Object[] row = { "Separador", lexema, token };
                             correctosTableModel.addRow(row);
+                            String contenido = "Separador: " + lexema + ", Token: " + token;
+                            guardarEnArchivo("datos.txt", contenido);
                         } else if (OperadorAritmetico(lexema)) {
                             String token = obtenerTokenOperadorAritmetico();
-                            Object[] row = {"Operador Aritmético", lexema, token};
+                            Object[] row = { "Operador Aritmético", lexema, token };
                             correctosTableModel.addRow(row);
-                        } else if (OperadorRelacional(lexema)){
+                            String contenido = "Operador Aritmetico: " + lexema + ", Token: " + token;
+                            guardarEnArchivo("datos.txt", contenido);
+                        } else if (OperadorRelacional(lexema)) {
                             String token = obtenerTokenOperadorRelacional();
-                            Object[] row = {"Operador Relacional", lexema, token};
+                            Object[] row = { "Operador Relacional", lexema, token };
                             correctosTableModel.addRow(row);
+                            String contenido = "Operador Relacional: " + lexema + ", Token: " + token;
+                            guardarEnArchivo("datos.txt", contenido);
                         } else if (OperadorAsignacion(lexema)) {
                             String token = obtenerTokenOperadorAsignacion();
-                            Object[] row = {"Operador Asignación", lexema, token};
+                            Object[] row = { "Operador Asignación", lexema, token };
                             correctosTableModel.addRow(row);
+                            String contenido = "Operador Asignación: " + lexema + ", Token: " + token;
+                            guardarEnArchivo("datos.txt", contenido);
                         } else if (OperadorLogico(lexema)) {
                             String token = obtenerTokenOperadorLogico();
-                            Object[] row = {"Operador Lógico", lexema, token};
+                            Object[] row = { "Operador Lógico", lexema, token };
                             correctosTableModel.addRow(row);
+                            String contenido = "Operador Lógico: " + lexema + ", Token: " + token;
+                            guardarEnArchivo("datos.txt", contenido);
                         } else if (Identificador(lexema)) {
                             String token = obtenerTokenIdentificador();
-                            Object[] row = {"Identificador", lexema, token};
+                            Object[] row = { "Identificador", lexema, token };
                             correctosTableModel.addRow(row);
-                        } else if (NumeroEntero(lexema)){
+                            String contenido = "Identificador: " + lexema + ", Token: " + token;
+                            guardarEnArchivo("datos.txt", contenido);
+                        } else if (NumeroEntero(lexema)) {
                             String token = obtenerTokenNumEntero();
-                            Object[] row = {"Numero Entero", lexema, token};
+                            Object[] row = { "Numero Entero", lexema, token };
                             correctosTableModel.addRow(row);
-                        } else if (NumeroDecimal(lexema)){
+                            String contenido = "Numero Entero: " + lexema + ", Token: " + token;
+                            guardarEnArchivo("datos.txt", contenido);
+                        } else if (NumeroDecimal(lexema)) {
                             String token = obtenerTokenNumDecimal();
-                            Object[] row = {"Numero con decimal", lexema, token};
+                            Object[] row = { "Numero con decimal", lexema, token };
                             correctosTableModel.addRow(row);
-                        } else if (TipoDato(lexema)){
+                            String contenido = "Numero con decimal: " + lexema + ", Token: " + token;
+                            guardarEnArchivo("datos.txt", contenido);
+                        } else if (TipoDato(lexema)) {
                             String token = obtenerTokenTipoDato();
-                            Object[] row = {"Tipo de dato", lexema, token};
+                            Object[] row = { "Tipo de dato", lexema, token };
                             correctosTableModel.addRow(row);
-                        } else if (Condicional(lexema)){
+                            String contenido = "Tipo de dato: " + lexema + ", Token: " + token;
+                            guardarEnArchivo("datos.txt", contenido);
+                        } else if (Condicional(lexema)) {
                             String token = obtenerTokenCondicional();
-                            Object[] row = {"Condicional", lexema, token};
+                            Object[] row = { "Condicional", lexema, token };
                             correctosTableModel.addRow(row);
+                            String contenido = "Condicional: " + lexema + ", Token: " + token;
+                            guardarEnArchivo("datos.txt", contenido);
                         } else {
-                            Object[] row = {"Error de sintaxis", lexema, String.valueOf(filaActual)};
+                            Object[] row = { "Error de lexema", lexema, String.valueOf(filaActual) };
                             incorrectosTableModel.addRow(row);
                         }
                     }
@@ -224,17 +258,18 @@ public class AnalizadorLexicoGUI extends JFrame implements ActionListener {
             } else {
                 // La sintaxis es incorrecta
                 String error = obtenerErrorSintactico();
-                JOptionPane.showMessageDialog(this, "El código tiene errores de sintaxis: "+error);
+                JOptionPane.showMessageDialog(this, "El código tiene errores de sintaxis: " + error);
             }
         } else if (e.getSource() == limpiarButton) {
             textArea.setText("");
-        } else if (e.getSource() == TextFileCreation){
+        } else if (e.getSource() == TextFileCreation) {
             escribirArchivo(TOKENS_FILENAME, lexemasRegistrados);
-        } else if (e.getSource() == abrirArchivoButton){
+        } else if (e.getSource() == abrirArchivoButton) {
             abrirArchivo();
         }
     }
-    //Contador de tokens para los lexemas
+
+    // Contador de tokens para los lexemas
     private String obtenerTokenseparador() {
         String token = "DEL" + contadorTokenSeparador;
         contadorTokenSeparador++;
@@ -295,17 +330,20 @@ public class AnalizadorLexicoGUI extends JFrame implements ActionListener {
         return token;
     }
 
-    //logica de los lexemas
-    private boolean Separador(String lexema){
-        return lexema.equals("(") || lexema.equals(")") || lexema.equals("{") || lexema.equals("}") || lexema.equals(",") || lexema.equals(";");
+    // logica de los lexemas
+    private boolean Separador(String lexema) {
+        return lexema.equals("(") || lexema.equals(")") || lexema.equals("{") || lexema.equals("}")
+                || lexema.equals(",") || lexema.equals(";");
     }
 
     private boolean OperadorAritmetico(String lexema) {
-        return lexema.equals("+") || lexema.equals("-") || lexema.equals("*") || lexema.equals("/") || lexema.equals("%");
+        return lexema.equals("+") || lexema.equals("-") || lexema.equals("*") || lexema.equals("/")
+                || lexema.equals("%");
     }
 
     private boolean OperadorRelacional(String lexema) {
-        return lexema.equals("<") || lexema.equals(">") || lexema.equals("<=") || lexema.equals(">=") || lexema.equals("==") || lexema.equals("!=");
+        return lexema.equals("<") || lexema.equals(">") || lexema.equals("<=") || lexema.equals(">=")
+                || lexema.equals("==") || lexema.equals("!=");
     }
 
     private boolean OperadorAsignacion(String lexema) {
@@ -317,10 +355,10 @@ public class AnalizadorLexicoGUI extends JFrame implements ActionListener {
     }
 
     private boolean Identificador(String lexema) {
-        return lexema.matches("URF_[a-zA-Z0-9]+");
+        return lexema.matches("URF_[a-zA-Z0-9]+;");
     }
 
-    private boolean NumeroEntero(String lexema){
+    private boolean NumeroEntero(String lexema) {
         return lexema.matches("4\\d+4");
     }
 
@@ -328,7 +366,7 @@ public class AnalizadorLexicoGUI extends JFrame implements ActionListener {
         return lexema.matches("4\\d+4\\.\\d+");
     }
 
-    private boolean TipoDato(String lexema){
+    private boolean TipoDato(String lexema) {
         return lexema.matches("Zhonya-|Liandry-|Doran-");
     }
 
